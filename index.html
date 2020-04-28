@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sprint 3: STI</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body class="App">
+
+    <div class="App-left">
+        <div class="App-canvas" id="canvas"></div>
+
+    </div>
+
+    <div class="App-right">
+
+        <h2 class="App-titulazo">Similitud entre estudiantes de STI de acuerdo a sus caracteristicas</h2>
+
+        <div class="App-inputContainer">
+            <h3 class="App-inputTitle">Elige una persona</h3>
+            <select placeholder="Seleccionar persona" class="App-select" id="select_users">
+            </select>
+        </div>
+
+        <div class="App-inputContainer">
+            <h3 class="App-inputTitle">Importancia de Edad</h3>
+            <h3 class="App-inputTitle" id="title_user_Edad">0</h3>
+            <input class="App-input" type="range" id="form_user_Edad" value="1" step="0.01" min="0" max="1">
+        </div>
+
+        <div class="App-inputContainer">
+            <h3 class="App-inputTitle">Importancia de Peso</h3>
+            <h3 class="App-inputTitle" id="title_user_Peso">0</h3>
+            <input class="App-input" type="range" id="form_user_Peso" value="1" step="0.01" min="0" max="1">
+        </div>
+
+        <div class="App-inputContainer">
+            <h3 class="App-inputTitle">Importancia de Altura</h3>
+            <h3 class="App-inputTitle" id="title_user_Altura">0</h3>
+            <input class="App-input" type="range" id="form_user_Altura" value="1" step="0.01" min="0" max="1">
+        </div>
+
+        <div class="App-inputContainer">
+            <h3 class="App-inputTitle">Importancia de Mascotas</h3>
+            <h3 class="App-inputTitle" id="title_user_Mascotas">0</h3>
+            <input class="App-input" type="range" id="form_user_Mascotas" value="1" step="0.01" min="0" max="1">
+        </div>
+
+        <img class="App-rightimage" src="./src/img/right.png" alt="">
+
+    </div>
+</body>
+
+<script src="./js/Person.js"></script>
+<script src="./libs/papaparse.js"></script>
+<script src="./libs/p5.min.js"></script>
+<script src="./main.js"></script>
+
+</html>
