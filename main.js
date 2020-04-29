@@ -13,6 +13,14 @@ let value_Peso = 0;
 let value_Altura  = 0;
 let value_Mascotas = 0;
 
+//mayores valores de la base de datos
+
+const mayorEdad=23;
+const mayorAltura=190;
+const mayorPeso=80;
+const mayorMascotas=16;
+
+
 //titulos para mostrar el valor de los inputs
 let title_Edad = document.getElementById("title_user_Edad");
 let title_Peso = document.getElementById("title_user_Peso");
@@ -45,6 +53,38 @@ function createList(users) {
     }
 }
 
+//sacar mayor edad
+/*
+function valorMayorEdad(array){
+
+    mayorEdad = Math.max.apply(null, array)[0];
+
+    return mayorEdad;
+
+}
+function valorMayorAltura(array){
+
+    mayorAltura = Math.max.apply(null, array)[0];
+
+    return mayorAltura;
+
+}
+function valorMayorPeso(array){
+
+    mayorPeso = Math.max.apply(null, array)[0];
+
+    return mayorPeso;
+
+}
+
+function valorMayorMascotas(array){
+
+    mayorMascotas = Math.max.apply(null, array)[0];
+
+    return mayorMascotas;
+
+}
+*/
 select_element.addEventListener("change", (e)=>{
     //resetaer los sliders
     input_Edad.value = 1;
@@ -107,14 +147,18 @@ input_Mascotas.addEventListener("mousemove", (e)=>{
 
 /** SIMILARITY OPERATIONS */
 
-function operacion(a, b){
-    var propunto = (a.Edad * b.Edad * value_Edad) + (a.Peso * b.Peso * value_Peso) + (a.Altura * b.Altura * value_Altura) + (a.Mascotas * b.Mascotas * value_Mascotas);
+function operacion(a,b){
+
+
+
+
+    var propunto = ( value_Edad * (b.Edad-20/mayorEdad)) + ( value_Peso * (b.Peso-50 /mayorPeso)) + ( value_Altura * (b.Altura-156/mayorAltura)) + (value_Mascotas * (b.Mascotas-0)/mayorMascotas);
     //console.log(propunto);
     
-    var magnitud_A = Math.sqrt((Math.pow(a.Edad, 2) * value_Edad) + (Math.pow(a.Peso, 2) * value_Peso) + (Math.pow(a.Altura, 2) * value_Altura) + (Math.pow(a.Mascotas,2) * value_Mascotas));
-    var magnitud_B = Math.sqrt((Math.pow(b.Edad, 2) * value_Edad) + (Math.pow(b.Peso, 2) * value_Peso) + (Math.pow(b.Altura, 2) * value_Altura) + (Math.pow(b.Mascotas,2) * value_Mascotas));
-
-    let magnitud = magnitud_A * magnitud_B;
+    //var magnitud_A = Math.sqrt((Math.pow(a.Edad, 2)) + (Math.pow(a.Peso, 2)) + (Math.pow(a.Altura, 2)) + (Math.pow(a.Mascotas,2)));
+    var magnitud_B = Math.sqrt((Math.pow(b.Edad, 2)) + (Math.pow(b.Peso, 2)) + (Math.pow(b.Altura, 2)) + (Math.pow(b.Mascotas,2)));
+  var magnitud_C = Math.sqrt((Math.pow(value_Edad, 2)) + (Math.pow(value_Peso, 2)) + (Math.pow(value_Altura, 2)) + (Math.pow(value_Mascotas,2)));
+    let magnitud = magnitud_C * magnitud_B ;
     //console.log(magnitud);
     
     var res = propunto / magnitud;
@@ -153,6 +197,8 @@ let canvas_object = function (p5) {
     let main_person = null;
     
     let imgFondo;
+
+    
 
     p5.preload = function (){
         //se cargan las imagenes en el pre load y se pasan de parametros para no estar cargandolas a cada rato, solo 1 vez antes de inicair todo
@@ -215,7 +261,12 @@ let canvas_object = function (p5) {
         //calcular la similitud de cada uno respecto al escogido
         for (let index = 0; index < people.length; index++) {
             const p = people[index];
-            
+/*
+            valorMayorEdad(p.data.Edad);
+            valorMayorAltura(p.data.Altura);
+            valorMayorPeso(p.data.Peso);
+            valorMayorMascotas(p.data.Mascotas);
+            */
             if(main_person !=null){
                 let similitud_temp = operacion(main_person.data, p.data);
                 // update(similitud, distancia máxima)
@@ -253,6 +304,9 @@ let canvas_object = function (p5) {
         p5.resizeCanvas(canvas_width, canvas_height);
     };
 };
+
+
+
 
 //agregar el código del canvas al contenedor del canvas.
 //Si desde afuera se usará un método del canvas, se deben llamar desde este objeto p5_canvas
