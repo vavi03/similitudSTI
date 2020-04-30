@@ -20,6 +20,11 @@ const mayorAltura=190;
 const mayorPeso=80;
 const mayorMascotas=16;
 
+//min valores de la base de datos
+const minEdad=19;
+const minAltura=156;
+const minPeso=45;
+const minMascotas=0;
 
 //titulos para mostrar el valor de los inputs
 let title_Edad = document.getElementById("title_user_Edad");
@@ -54,37 +59,8 @@ function createList(users) {
 }
 
 //sacar mayor edad
-/*
-function valorMayorEdad(array){
 
-    mayorEdad = Math.max.apply(null, array)[0];
 
-    return mayorEdad;
-
-}
-function valorMayorAltura(array){
-
-    mayorAltura = Math.max.apply(null, array)[0];
-
-    return mayorAltura;
-
-}
-function valorMayorPeso(array){
-
-    mayorPeso = Math.max.apply(null, array)[0];
-
-    return mayorPeso;
-
-}
-
-function valorMayorMascotas(array){
-
-    mayorMascotas = Math.max.apply(null, array)[0];
-
-    return mayorMascotas;
-
-}
-*/
 select_element.addEventListener("change", (e)=>{
     //resetaer los sliders
     input_Edad.value = 1;
@@ -149,20 +125,41 @@ input_Mascotas.addEventListener("mousemove", (e)=>{
 
 function operacion(a,b){
 
+    //definir nombre variables de las personas
+ let vA = {Edad:0, Altura:0, Peso:0, Mascotas:0}; 
 
-  //  var propunto = (value_Edad * ((b.Edad-19)/mayorEdad)) +  (a.Peso * value_Peso * ((b.Peso-45)/mayorPeso)) + ( a.Altura * value_Altura * ((b.Altura-156)/mayorAltura)) + (a.Mascotas * value_Mascotas * ((b.Mascotas-0)/mayorMascotas)) ;
+ let vB = {Edad:0, Altura:0, Peso:0, Mascotas:0}; 
+
+ //aqui vamos a multiplicar los valores de los sliders por la caracteristica de la persona A
+   vA.Edad= (value_Edad * (a.Edad - minEdad))/mayorEdad;
    
+   vA.Peso= (value_Peso * (a.Peso - minPeso))/mayorPeso;
 
-    var propunto = (a.Edad * value_Edad * (b.Edad-19))/mayorEdad +  (a.Peso * value_Peso * (b.Peso-45))/mayorPeso + ( a.Altura * value_Altura * (b.Altura-156))/mayorAltura + (a.Mascotas * value_Mascotas * (b.Mascotas-0))/mayorMascotas ;
+   vA.Altura= (value_Altura * (a.Altura - minAltura))/mayorAltura;
+
+   vA.Mascotas= (value_Mascotas * (a.Mascotas - minMascotas))/mayorMascotas;
+ 
+    //aqui vamos a multiplicar los valores de los sliders por la caracteristica de la persona B
+    vB.Edad= (value_Edad * (b.Edad - minEdad))/mayorEdad;
+   
+    vB.Peso= (value_Peso * (b.Peso - minPeso))/mayorPeso;
+ 
+    vB.Altura= (value_Altura * (b.Altura - minAltura))/mayorAltura;
+ 
+    vB.Mascotas= (value_Mascotas * (b.Mascotas - minMascotas))/mayorMascotas;
+
+ 
+
+    var propunto = (vA.Edad * vB.Edad) + (vA.Peso * vB.Peso) + (vA.Altura * vB.Altura) + (vA.Mascotas * vB.Mascotas);
     //console.log(propunto);
     
-    var magnitud_A = Math.sqrt((Math.pow(a.Edad, 2)) + (Math.pow(a.Peso, 2)) + (Math.pow(a.Altura, 2)) + (Math.pow(a.Mascotas,2)));
-    var magnitud_B = Math.sqrt((Math.pow(b.Edad, 2)) + (Math.pow(b.Peso, 2)) + (Math.pow(b.Altura, 2)) + (Math.pow(b.Mascotas,2)));
-  var magnitud_C = Math.sqrt((Math.pow(value_Edad, 2)) + (Math.pow(value_Peso, 2)) + (Math.pow(value_Altura, 2)) + (Math.pow(value_Mascotas,2)));
-    let magnitud = magnitud_B * magnitud_C ;
+    var magnitud_A = Math.sqrt((Math.pow(vA.Edad, 2)) + (Math.pow(vA.Peso, 2)) + (Math.pow(vA.Altura, 2)) + (Math.pow(vA.Mascotas,2)));
+    var magnitud_B = Math.sqrt((Math.pow(vB.Edad, 2)) + (Math.pow(vB.Peso, 2)) + (Math.pow(vB.Altura, 2)) + (Math.pow(vB.Mascotas,2)));
+
+    let magnitud = magnitud_B * magnitud_A ;
     //console.log(magnitud);
     
-    var res = propunto / magnitud *10;
+    var res = propunto / magnitud ;
     //console.log(res);
 
     return res;
@@ -240,7 +237,7 @@ let canvas_object = function (p5) {
         p5.noFill();
         p5.stroke(234, 34, 77, 0.8);
         p5.strokeWeight(4);
-        
+        p5.ellipse(canvas_width/2, canvas_height/2, circle_limit*2, circle_limit*2);
         p5.ellipse(canvas_width/2, canvas_height/2, circle_limit*1.5, circle_limit*1.5);
         p5.ellipse(canvas_width/2, canvas_height/2, circle_limit, circle_limit);
         p5.noStroke();
@@ -262,12 +259,7 @@ let canvas_object = function (p5) {
         //calcular la similitud de cada uno respecto al escogido
         for (let index = 0; index < people.length; index++) {
             const p = people[index];
-/*
-            valorMayorEdad(p.data.Edad);
-            valorMayorAltura(p.data.Altura);
-            valorMayorPeso(p.data.Peso);
-            valorMayorMascotas(p.data.Mascotas);
-            */
+           
             if(main_person !=null){
                 let similitud_temp = operacion(main_person.data, p.data);
                 // update(similitud, distancia máxima)
