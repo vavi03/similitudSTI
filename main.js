@@ -150,18 +150,19 @@ input_Mascotas.addEventListener("mousemove", (e)=>{
 function operacion(a,b){
 
 
+  //  var propunto = (value_Edad * ((b.Edad-19)/mayorEdad)) +  (a.Peso * value_Peso * ((b.Peso-45)/mayorPeso)) + ( a.Altura * value_Altura * ((b.Altura-156)/mayorAltura)) + (a.Mascotas * value_Mascotas * ((b.Mascotas-0)/mayorMascotas)) ;
+   
 
-
-    var propunto = ( value_Edad * (b.Edad-20/mayorEdad)) + ( value_Peso * (b.Peso-50 /mayorPeso)) + ( value_Altura * (b.Altura-156/mayorAltura)) + (value_Mascotas * (b.Mascotas-0)/mayorMascotas);
+    var propunto = (a.Edad * value_Edad * (b.Edad-19))/mayorEdad +  (a.Peso * value_Peso * (b.Peso-45))/mayorPeso + ( a.Altura * value_Altura * (b.Altura-156))/mayorAltura + (a.Mascotas * value_Mascotas * (b.Mascotas-0))/mayorMascotas ;
     //console.log(propunto);
     
-    //var magnitud_A = Math.sqrt((Math.pow(a.Edad, 2)) + (Math.pow(a.Peso, 2)) + (Math.pow(a.Altura, 2)) + (Math.pow(a.Mascotas,2)));
+    var magnitud_A = Math.sqrt((Math.pow(a.Edad, 2)) + (Math.pow(a.Peso, 2)) + (Math.pow(a.Altura, 2)) + (Math.pow(a.Mascotas,2)));
     var magnitud_B = Math.sqrt((Math.pow(b.Edad, 2)) + (Math.pow(b.Peso, 2)) + (Math.pow(b.Altura, 2)) + (Math.pow(b.Mascotas,2)));
   var magnitud_C = Math.sqrt((Math.pow(value_Edad, 2)) + (Math.pow(value_Peso, 2)) + (Math.pow(value_Altura, 2)) + (Math.pow(value_Mascotas,2)));
-    let magnitud = magnitud_C * magnitud_B ;
+    let magnitud = magnitud_B * magnitud_C ;
     //console.log(magnitud);
     
-    var res = propunto / magnitud;
+    var res = propunto / magnitud *10;
     //console.log(res);
 
     return res;
